@@ -141,6 +141,50 @@ module.exports={
 可以看到代码的第7和14行进行了增加和修改，在入口文件配置中，增加了一个entry2.js的入口文件（这个文件你需要自己手动建立），这时候要打包的就有了两个入口文件。在代码14行我们把原来的bundle.js修改成了`[name].js`。
 
 `[name]`的意思是`根据入口文件的名称，打包成相同的名称`，有几个入口文件，就可以打包出几个文件。
+执行 webpack 就可以看到结果
 
 ### 三.配置文件：服务和热更新
+热更新:作为一个前端工程师，最大的编程需求之一就是所见即所得的工具
+#### 1.设置webpack-dev-server(webpack 3.6新增)
+（1）要执行`webpack-dev-server`是要先用`npm install webpack-dev-server –save-dev`来进行下载的
+
+```
+npm install webpack-dev-server --save-dev
+
+```
+
+（2）下载完`配置devServer`
+
+最简单的devServer配置项只有四个:
+```
+devServer:{
+    //设置基本目录结构
+    contentBase:path.resolve(__dirname,'dist'),
+    //服务器的IP地址，可以使用IP也可以使用localhost
+    host:'localhost',
+    //服务端压缩是否开启
+    compress:true,
+    //配置服务端口号
+    port:1717
+}
+```
+>contentBase:配置服务器`基本运行路径`，用于找到程序打包地址。<br>
+host：`服务运行地址`，建议使用本机IP，这里为了讲解方便，所以用localhost。<br>
+compress：`服务器端压缩选型，一般设置为开启`，如果你对服务器压缩感兴趣，可以自行学习。<br>
+port：`服务运行端口`，建议不使用80，很容易被占用，这里使用了1717.
+
+（3）命令行执行 webpack-dev-server 成功，在 http://localhost:1717/ 可看到结果
+
+（4）在package.json 中配置 scripts 后，就可以执行命令 npm run server
+```
+"scripts": {
+    "server":"webpack-dev-server"
+  }
+```
+备注：在npm run server 启动后，它是有一种监控机制的（也叫watch）。它可以监控到我们修改源码，并立即在浏览器里给我们更新。
+这里只是我们的webpack3.6版本支持，在3.5版本时要支持热更新还需要一些其他的操作。
+### 四.模块：CSS文件打包
+
+
+
 

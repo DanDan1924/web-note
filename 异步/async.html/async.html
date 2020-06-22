@@ -1,0 +1,50 @@
+<!--
+ * @Author: your name
+ * @Date: 2020-06-15 17:21:45
+ * @LastEditTime: 2020-06-15 17:47:57
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: /web/异步/async.html/async.html
+--> 
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function 摇色子(caice) {
+            return new Promise((resolve, reject) => {
+                let sino = '哈哈哈'
+                if(caice === '大'){
+                    console.log(111)
+                    resolve(sino)
+                }
+                else{
+                    reject(sino)
+                }
+                setTimeout(() => {
+                    resolve(sino)
+                }, 1000)
+            })
+        }
+        async function test() {
+            console.log(222)
+            try{
+                //把await及获取它的值的操作放在try里
+                let n =await 摇色子('大')
+                console.log('赢了' + n)
+            }catch(error){
+                //失败的操作放在catch里
+                console.log('输了' + error)                
+            }
+        }
+        test()
+    </script>
+</body>
+
+</html>
