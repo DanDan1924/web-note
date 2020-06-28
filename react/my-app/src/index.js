@@ -1,3 +1,11 @@
+/*
+ * @Author: your name
+ * @Date: 2020-06-19 16:07:48
+ * @LastEditTime: 2020-06-28 14:50:12
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: /web/react/my-app/src/index.js
+ */ 
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
@@ -5,14 +13,20 @@ import './index.css';
 import * as serviceWorker from './serviceWorker';
 import styles from './index.module.css'
 // import ClassComponent from './compontents/classCompontent'
-import FunCompontent from './compontents/funCompontent'
+// import FunCompontent from './compontents/funCompontent'
+import CompontentsFix from './compontentsfix/CompontentsFix'; 
+import  ReduxPage  from './store/ReduxPage'; //redux
+// import store from './store/';
+// import { Provider } from "react-redux";
 
 ReactDOM.render(
   <React.StrictMode>
     {/* 组件 */}
     {/* <App /> */}
     {/* <ClassComponent /> */}
-    <FunCompontent />
+    {/* <FunCompontent /> */}
+    {/* <CompontentsFix></CompontentsFix> */}
+    <ReduxPage></ReduxPage>
   </React.StrictMode>,
   document.getElementById('root')
 );
