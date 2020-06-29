@@ -1,12 +1,13 @@
 <!--
  * @Author: your name
  * @Date: 2020-05-26 11:46:51
- * @LastEditTime: 2020-06-28 19:09:52
+ * @LastEditTime: 2020-06-29 11:39:10
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /web/es6/es6-flat.md
 --> 
 ## es6之数组的flat()，flatMap()，多维数组变一维数组扩展
+
 ### 一、flat()：
 1.负责将`多维数组--->一维数组`。该方法返回一个新的数组，对原数据没有影响。
 ```
@@ -415,3 +416,17 @@ const FOO_KEY = Symbol('foo');
 
 ### 八、内置的 Symbol 值
 除了定义自己使用的 Symbol 值以外，ES6 还提供了 `11 个内置的 Symbol` 值，指向语言内部使用的方法。
+#### Symbol.hasInstance
+#### Symbol.isConcatSpreadable
+#### Symbol.species 
+#### Symbol.match
+#### Symbol.replace 
+#### Symbol.search 
+#### Symbol.split 
+#### Symbol.iterator 
+#### Symbol.toPrimitive
+#### Symbol.toStringTag
+#### Symbol.unscopables
+
+
+
