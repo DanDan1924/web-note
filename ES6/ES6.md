@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-05-26 11:46:51
- * @LastEditTime: 2020-06-29 19:56:13
+ * @LastEditTime: 2020-06-30 16:35:24
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /web/es6/es6-flat.md
@@ -612,3 +612,108 @@ WeakSet 不能遍历，是因为成员都是弱引用，随时可能消失
 - 即使在外部消除了成员键的引用，内部的成员值依然存在
 
 ## Class
+
+## 数组扩展
+### ES2015
+- **扩展运算符(...)**：转换数组为用逗号分隔的参数序列([...arr]，相当于rest/spread参数的逆运算)
+- **Array.from**：转换具有`Iterator接口`的数据结构为真正数组，返回新数组
+    * 类数组对象：`包含length的对象`、`Arguments对象`、`NodeList对象`
+    * 可遍历对象：`String`、`Set结构`、`Map结构`、`Generator函数`
+- **Array.of()**：转换一组值为真正数组，返回新数组
+- **copyWithin()**：在数组内部把指定位置的成员复制到其他位置， `改变原数组`并返回
+    - 参数
+    - target（必需）：替换的位置，如为负，表示倒数
+    - start（可选）：读取位置，默认0。如为负，从末尾开始计算
+    - end（可选）：到该位置`前`停止读取数据，默认数组长度。如为负，从末尾开始计算
+    ````
+    // 将3号位复制到0号位
+    [1, 2, 3, 4, 5].copyWithin(0, 3, 4)
+    // [4, 2, 3, 4, 5]
+
+    // -2相当于3号位，-1相当于4号位
+    [1, 2, 3, 4, 5].copyWithin(0, -2, -1)
+    // [4, 2, 3, 4, 5]
+
+    // 将3号位复制到0号位
+    [].copyWithin.call({length: 5, 3: 1}, 0, 3)
+    // {0: 1, 3: 1, length: 5}
+
+    // 将2号位到数组结束，复制到0号位
+    let i32a = new Int32Array([1, 2, 3, 4, 5]);
+    i32a.copyWithin(0, 2);
+    // Int32Array [3, 4, 5, 4, 5]
+
+    // 对于没有部署 TypedArray 的 copyWithin 方法的平台
+    // 需要采用下面的写法
+    [].copyWithin.call(new Int32Array([1, 2, 3, 4, 5]), 0, 3, 4);
+    // Int32Array [4, 2, 3, 4, 5]
+    ````
+
+- **find()**：返回第一个符合条件的成员
+```
+[1, 4, -5,-2, 10].find((n) => n < 0)
+//-5
+```
+- **findIndex()**：返回第一个符合条件的成员索引值
+- **fill()**：根据指定值填充整个数组，`改变原数组并返回`
+- **keys()**：返回以索引值为遍历器的对象
+- **values()**：返回以属性值为遍历器的对象
+- **entries()**：返回以索引值和属性值为遍历器的对象
+
+
+```
+for (let index of ['a', 'b'].keys()) {
+  console.log(index);
+}
+// 0
+// 1
+
+for (let elem of ['a', 'b'].values()) {
+  console.log(elem);
+}
+// 'a'
+// 'b'
+
+for (let [index, elem] of ['a', 'b'].entries()) {
+  console.log(index, elem);
+}
+// 0 "a"
+// 1 "b"
+```
+- **数组空位**：ES6明确将数组空位转为undefined(空位处理规不一，建议避免出现)
+
+> 扩展应用
+- 克隆数组：`const arr = [...arr1]`
+- 合并数组：`const arr = [...arr1, ...arr2]`
+- 拼接数组：`arr.push(...arr1)`
+- 代替apply：`Math.max.apply(null, [x, y]) => Math.max(...[x, y])`
+转换字符串为数组：`[..."hello"]` `Array.from("hello")`
+- 转换类数组对象为数组：[...Arguments, ...NodeList]
+- 转换可遍历对象为数组：[...String, ...Set, ...Map, ...Generator]
+
+>重点难点
+> keys,values,entries都返回一个`遍历器对象(Iterator)`，可以用`for...of`循环进行遍历
+
+### ES2016
+- **includes()**：是否存在指定成员
+### ES2019
+- **sort()稳定性**：排序关键字相同的项目其排序前后的顺序不变，默认为稳定
+- **flat()**：扁平化数组，返回新数组(默认拉平1层，如果要2层，传入参数2，以此类推)  ，`Infinity`(无论多少层)
+- **flatMap()**：映射且扁平化数组，返回新数组(只能展开一层数组)
+```
+[1, 2, [3, [4, 5]]].flat()
+// [1, 2, 3, [4, 5]]
+
+[1, 2, [3, [4, 5]]].flat(2)
+// [1, 2, 3, 4, 5]
+
+[1, [2, [3]]].flat(Infinity)
+// [1, 2, 3]
+```
+
+```
+// 相当于 [[2, 4], [3, 6], [4, 8]].flat()
+[2, 3, 4].flatMap((x) => [x, x * 2])
+// [2, 4, 3, 6, 4, 8]
+```
+
