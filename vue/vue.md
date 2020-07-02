@@ -1,15 +1,16 @@
 <!--
  * @Author: your name
  * @Date: 2020-06-14 16:14:32
- * @LastEditTime: 2020-07-02 12:04:45
+ * @LastEditTime: 2020-07-02 15:57:58
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /web/vue/vue.md
 --> 
 <!-- 1.在父组件的created里面，父组件先于子组件创建 -->
+[TOC] Vue组件
 ## Vue组件
 ### 通信方式
-#### 父子 ：`props` `$children` `refs`
+#### 父子 ：props $children refs
 ```
 <!-- 1、props -->
 // child
@@ -34,14 +35,14 @@ mounted() {
 ```
 
 
-#### 子父：`自定义事件 `
+#### 子父：自定义事件 
 ```
 // child
 this.$emit('add', good)
 // parent
 <Cart @add="cartAdd($event)"></Cart>
 ```
-#### 任意组件：`事件总线` `vuex`
+#### 任意组件：事件总线  vuex
 ```
 <!-- 1、$bus 事件总线 -->
  // Bus:事件派发、监听和回调管理 class Bus {
@@ -65,14 +66,14 @@ this.$bus.$on('foo', handle)
 this.$bus.$emit('foo')
 ```
 > 解析：Bus实现了Vue的$on   $emit   
-#### 兄弟组件:`$parent` `$root` 
+#### 兄弟组件: `$parent`   `$root`
 ```
 // brother1
 this.$parent.$on('foo', handle)
 // brother2
 this.$parent.$emit('foo')
 ```
-#### 跨组件通信 `provide/inject`
+#### 跨组件通信 provide/inject
 ```
 // ancestor
 provide() {
@@ -89,7 +90,8 @@ inject: {
     }
 }, 
 ```
-#### ⾮prop特性 `$attrs/$listeners`  
+#### ⾮prop特性  `$attrs`/`$listeners`
+
 >包含了父作用域中**不作为 prop 被识别** (且获取) 的特性绑定 ( `class 和 style 除外`)。当一个组件没有 声明任何 prop 时，这里会包含所有父作用域的绑定 ( class 和 style 除外)，并且可以通过 `v-bind="$attrs"` 传入内部组件——在创建高级别的组件时非常有用。
 ```
 // child:并未在props中声明msg 
@@ -106,13 +108,59 @@ inject: {
 - 具名插槽
 - 作用域插槽
 
-### 组件创建
+### 组件创建  Vue.component  Vue.extend  template
 - Vue.component 全局注册   
 https://cn.vuejs.org/v2/api/#Vue-component 
 
 - Vue.extend 使用 Vue 构造器   
+Vue.extend 属于 Vue 的全局 API，在实际业务开发中我们很少使用，因为相比常用的 Vue.component 写法使用 extend 步骤要更加繁琐一些。但是在一些独立组件开发场景中，`Vue.extend + $mount` 这对组合是我们需要去关注的。
 https://cn.vuejs.org/v2/api/#Vue-extend 
+
+应用场景
+（1）从接口动态渲染组件
+（2）要实现类似于window.alert()的提示组件，要求像JS函数一样调用它。
+
+
 ```
+<!-- 如下实现 -->
+<!-- utils代码 -->
+import Vue from 'vue'
+// 传入一个组件配置
+// 创建它的实例，并且将它挂载到body上
+// 返回组件实例
+
+export default function create(Component, props) {
+    //Component：传入的组件
+    //props：组件需要的参数
+
+    const Ctor = Vue.extend(Component)
+    const comp = new Ctor()
+    Object.keys(props).forEach(item=>{
+    comp[item] = props[item]
+    })
+    const vm = comp.$mount()
+    document.body.appendChild(vm.$el)
+    vm.remove = ()=>{
+        <!-- 实例上挂载其他方法 -->
+        document.body.removeChild(vm.$el)
+        vm.$destroy()
+    }
+    return vm
+
+    // extend方式二
+    const Ctor = Vue.extend(Component)
+    const comp = new Ctor({propsData:props})
+    console.log(comp)
+    const vm = comp.$mount()
+    document.body.appendChild(vm.$el)
+    vm.remove = ()=>{
+         <!-- 实例上挂载其他方法 -->
+        document.body.removeChild(vm.$el)
+        vm.$destroy()
+    }
+    return vm
+}
+
 
 ```
 
@@ -124,8 +172,10 @@ v-model是一个指令，限制在 input,textarea,select,components中使用
 修饰符 .lazy(取代input监听change事件)、.number(输入字符串转为有效数字)
 她其实是一个语法糖
 
- ## Vue 常见实例方法 $mount() $destroy $watch $forceUpdate()
- - $mount()：挂载，（vue的作用范围）
+ ## Vue 常见实例方法
+ 
+ `$mount()`、`$destroy`、`$watch`、`$forceUpdate()`
+ - **$mount()**：挂载，（vue的作用范围）
  ```
  <!-- 将 vue实例挂载在 #app上-->
  let vm = new Vue({
@@ -144,7 +194,8 @@ v-model是一个指令，限制在 input,textarea,select,components中使用
 // vm.$el上有生成的dom
 document.body.appendChild(vm.$el)
  ```
- - $destroy()：手动销毁
- - $watch() 监听
- - $forceUpdate() 强制跟新 （react也有）
+ - **$destroy()**：手动销毁
+ - **$watch()** 监听
+ - **$forceUpdate()** 强制跟新 （react也有）
+ 
  
