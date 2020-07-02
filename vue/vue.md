@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-06-14 16:14:32
- * @LastEditTime: 2020-07-02 15:57:58
+ * @LastEditTime: 2020-07-02 17:40:14
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /web/vue/vue.md
@@ -167,10 +167,18 @@ export default function create(Component, props) {
 - template
 
 ## v-modal
-v-model是一个指令，限制在 input,textarea,select,components中使用
+> v-model是一个指令，限制在 `input`,`textarea`,`select`,`components`中使用
 
 修饰符 .lazy(取代input监听change事件)、.number(输入字符串转为有效数字)
 她其实是一个语法糖
+
+### 自定义组件的v-model
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20200702172308467.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2RhbmRhbjE5MjQ=,size_16,color_FFFFFF,t_70)
+
+
+### v-model是语法糖：
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20200702171512558.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2RhbmRhbjE5MjQ=,size_16,color_FFFFFF,t_70)
+
 
  ## Vue 常见实例方法
  
@@ -199,3 +207,32 @@ document.body.appendChild(vm.$el)
  - **$forceUpdate()** 强制跟新 （react也有）
  
  
+## vue Router
+### hash
+hash change 时
+component 
+
+router-view
+拿出component 重新执行下render函数
+
+这个router-view能实现页面渲染的原因
+### history API
+
+
+### vuex的实现原理
+view  
+store: state
+
+$store.state.ddd来访问
+
+commit (type)  提交来改变store 
+dispath: 
+
+想办法把state里面的数据更新到view
+数据响应式
+
+准备 （1）vue plugin 的写法
+    （2）render(h)的知识
+     (3)  vue.util  defind  数据响应式
+     new vue({})里面定义data 
+     （4）熟悉 vue关于class语法
