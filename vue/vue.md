@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-06-14 16:14:32
- * @LastEditTime: 2020-07-02 17:40:14
+ * @LastEditTime: 2020-07-02 18:36:43
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /web/vue/vue.md
@@ -105,8 +105,41 @@ inject: {
 
 ### 插槽
 - 匿名插槽
+```
+// comp1
+<div>
+    <slot></slot>
+</div>
+// parent
+<comp>hello</comp>
+```
 - 具名插槽
+```
+// comp2
+<div>
+    <slot></slot>
+    <slot name="content"></slot>
+</div>
+// parent
+<Comp2>
+<!-- 默认插槽用default做参数 -->
+<template v-slot:default>具名插槽</template> <!-- 具名插槽用插槽名做参数 -->
+<template v-slot:content>内容...</template>
+</Comp2>
+```
 - 作用域插槽
+```
+// comp3
+<div>
+    <slot :foo="foo"></slot>
+</div>
+// parent
+<Comp3>
+<!-- 把v-slot的值指定为作用域上下文对象 --> <template v-slot:default="ctx">
+来自子组件数据:{{ctx.foo}} </template>
+</Comp3>
+```
+
 
 ### 组件创建  Vue.component  Vue.extend  template
 - Vue.component 全局注册   
@@ -236,3 +269,5 @@ dispath:
      (3)  vue.util  defind  数据响应式
      new vue({})里面定义data 
      （4）熟悉 vue关于class语法
+
+### 
