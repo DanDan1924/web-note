@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-06-14 16:14:32
- * @LastEditTime: 2020-07-02 18:36:43
+ * @LastEditTime: 2020-07-03 16:14:28
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /web/vue/vue.md
@@ -241,6 +241,7 @@ document.body.appendChild(vm.$el)
  
  
 ## vue Router
+需求分析
 ### hash
 hash change 时
 component 
@@ -264,10 +265,10 @@ dispath:
 想办法把state里面的数据更新到view
 数据响应式
 
+
 准备 （1）vue plugin 的写法
     （2）render(h)的知识
      (3)  vue.util  defind  数据响应式
      new vue({})里面定义data 
      （4）熟悉 vue关于class语法
 
-### 
